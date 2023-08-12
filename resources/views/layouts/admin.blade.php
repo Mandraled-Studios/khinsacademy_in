@@ -245,6 +245,36 @@
                 
                         <ul class="mt-2 text-gray-600">
                             <!-- Links -->
+                            <li class="mt-8 @yield('specialClass1')">
+                                <a href="/student-registrations" class="flex ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                                    <span
+                                        class="ml-2 capitalize font-medium text-black
+                                        dark:text-gray-300">
+                                        student registrations
+                                    </span>
+                                </a>
+                            </li>
+                
+                            <li class="mt-8 @yield('specialClass3')">
+                                <a href="/occasions" class="flex">
+                                    <svg
+                                        class="fill-current h-5 w-5 dark:text-gray-300"
+                                        viewBox="0 0 24 24">
+                                        <path
+                                            d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2
+                                            2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0
+                                            00-2-2h-1V1m-1 11h-5v5h5v-5z"></path>
+                                    </svg>
+                                    <span
+                                        class="ml-2 capitalize font-medium text-black
+                                        dark:text-gray-300">
+                                        events / occasions
+                                    </span>
+                                </a>
+                            </li>
+            
+            
                             <li class="mt-8 @yield('specialClass9')">
                                 <a href="/online-exams" class="flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
@@ -262,7 +292,7 @@
                                     <span
                                         class="ml-2 capitalize font-medium text-black
                                         dark:text-gray-300">
-                                        My Quiz Ranks
+                                        Quiz reports
                                     </span>
                                 </a>
                             </li>
