@@ -5,7 +5,7 @@
     <div class="container mx-auto">
         @isset($_GET['term'])
         <div class="py-3">
-            <a class = "bg-gray-200 text-gray-700 px-3 py-2 border border-gray-600" href="{{route('admin.registrations')}}"> &lt; Back to List Of All Students</a>
+            <a class = "bg-gray-200 text-gray-700 px-3 py-2 border border-gray-600" href="{{route('admin.studentRegistrations')}}"> &lt; Back to List Of All Students</a>
         </div>
         @endisset
         <div class="md:flex md:justify-between md:items-center py-3">
