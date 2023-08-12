@@ -5,6 +5,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OccasionController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +44,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('admin.quiz.show');
         Route::post('/quiz', [QuizController::class, 'store'])->name('admin.quiz.store');
         Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('admin.quiz.edit');
-        Route::patch('/quiz/{slug}', [QuizController::class, 'update'])->name('admin.quiz.update');
-        Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
-
+        Route::patch('/quiz/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');
+        Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
         Route::post('/quiz/{slug}', [QuizController::class, 'addRelation'])->name('admin.quiz.relate');
         Route::delete('/quiz/{exam}/{dept}', [QuizController::class, 'breakRelation'])->name('admin.quiz.breakup');
+
+        /* ---- Questions ---- */
+        Route::get('/quiz/{slug}/questions', [QuestionController::class, 'index'])->name('admin.questions.index');
+        Route::get('/quiz/{slug}/questions/create', [QuestionController::class, 'create'])->name('admin.questions.create');
+        Route::post('/quiz/{id}/questions', [QuestionController::class, 'store'])->name('admin.questions.store');
+        Route::get('/quiz/{slug}/questions/{ques}/edit', [QuestionController::class, 'edit'])->name('admin.questions.edit');
+        Route::patch('/quiz/{id}/questions/{ques}', [QuestionController::class, 'update'])->name('admin.questions.update');
+        Route::delete('/quiz/{id}/questions/{ques}', [QuestionController::class, 'destroy'])->name('admin.questions.destroy');
+
     });
 
 });

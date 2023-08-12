@@ -23,6 +23,10 @@
    background-color: rgb(251, 146, 60);
 }
 
+.bg-green-300 {
+  background-color: #68D391BA;
+}
+
 .dropdown li>ul                 { transform: translatex(100%) scale(0) }
 .dropdown li:hover>ul           { transform: translatex(101%) scale(1) }
 .dropdown li > button svg       { transform: rotate(-90deg) }

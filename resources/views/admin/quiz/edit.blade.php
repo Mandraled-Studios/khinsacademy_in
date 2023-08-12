@@ -3,7 +3,7 @@
         Edit Quiz
     </x-slot>
     <div id="myForm" class = "w-3/4 p-4">
-        <form action="{{route('admin.quiz.update')}}" method="POST" class = "p-4" enctype="multipart/form-data">
+        <form action="{{route('admin.quiz.update', ['id' => $quiz->id])}}" method="POST" class = "p-4" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             @if($errors->any())

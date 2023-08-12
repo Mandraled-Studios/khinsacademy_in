@@ -105,10 +105,12 @@ class QuizController extends Controller
     }
     
     public function edit($slug) {
+        $occasions = Occasion::all();
         $quiz = Quiz::where("slug", $slug)->firstOrFail();
         return view('admin.quiz.edit')->with([
             "title" => "Edit Quiz - ".$quiz->title, 
-            "quiz" => $quiz
+            "quiz" => $quiz,
+            "occasions" => $occasions
         ]);
     }
     

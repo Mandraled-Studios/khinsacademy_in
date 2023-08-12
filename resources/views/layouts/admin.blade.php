@@ -13,6 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @isset($pageincludes)
+            {{$pageincludes}}
+        @endisset
 
         <!-- Styles -->
         @livewireStyles
@@ -486,6 +489,10 @@
         </div>
 
         @stack('modals')
+        
+        @isset($pagescript)
+            {{$pagescript}}
+        @endisset
 
         @livewireScripts
     </body>

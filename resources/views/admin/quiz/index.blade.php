@@ -95,9 +95,9 @@
                                 <div class = "md:col-span-5 xl:col-span-3 flex flex-1 flex-col justify-center">
                     
                                     <div class="mb-3 capitalize text-gray-600 px-2">
-                                        <a href = "/online-exams/{{$quiz->slug}}/questions" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> View Questions </a>
+                                        <a href = "{{route('admin.questions.index', ['slug' => $quiz->slug])}}" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> View Questions </a>
                                         <a href = "{{route('admin.quiz.edit', ['slug' => $quiz->slug])}}" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> Edit Quiz </a>
-                                        <form id = "deleteForm" action="{{route('admin.quiz.destroy', ['slug' => $quiz->slug])}}" method = "POST" class="inline">
+                                        <form id = "deleteForm" action="{{route('admin.quiz.destroy', ['id' => $quiz->id])}}" method = "POST" class="inline">
                                             @csrf
                                             @method('DELETE') 
                                             <button type = "submit" class = "block w-full px-4 py-2 rounded text-gray-200 bg-red-500 hover:bg-red-600" onclick="event.preventDefault();
