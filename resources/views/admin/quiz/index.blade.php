@@ -7,7 +7,7 @@
 
         <div class="flex justify-between my-6">
             <h3 class = "text-xl font-bold mb-4"> All Quizzes </h3>
-            <a href="/online-exams/create" class="px-3 py-2 bg-emerald-400 hover:bg-emerald-500 text-white"> + Add New Quiz </a>
+            <a href="{{route('admin.quiz.create')}}" class="px-3 py-2 bg-emerald-400 hover:bg-emerald-500 text-white"> + Add New Quiz </a>
         </div>
     
         <div class="tabs-nav">
