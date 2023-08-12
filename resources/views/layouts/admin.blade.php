@@ -246,7 +246,7 @@
                         <ul class="mt-2 text-gray-600">
                             <!-- Links -->
                             <li class="mt-8 @yield('specialClass1')">
-                                <a href="/student-registrations" class="flex ">
+                                <a href="{{route('admin.registrations')}}" class="flex ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
                                     <span
                                         class="ml-2 capitalize font-medium text-black
@@ -257,7 +257,7 @@
                             </li>
                 
                             <li class="mt-8 @yield('specialClass3')">
-                                <a href="/occasions" class="flex">
+                                <a href="{{route('admin.occasions.index')}}" class="flex">
                                     <svg
                                         class="fill-current h-5 w-5 dark:text-gray-300"
                                         viewBox="0 0 24 24">

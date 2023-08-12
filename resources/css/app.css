@@ -5,3 +5,48 @@
 [x-cloak] {
     display: none;
 }
+
+.selectedTab {
+    @apply shadow;
+    @apply py-2; 
+    @apply bg-orange-500; 
+    @apply rounded-lg; 
+    @apply -ml-4;
+}
+
+.selectedTab a {
+    @apply pl-4;
+    @apply text-white;
+}
+
+.dropdown li>ul                 { transform: translatex(100%) scale(0) }
+.dropdown li:hover>ul           { transform: translatex(101%) scale(1) }
+.dropdown li > button svg       { transform: rotate(-90deg) }
+.dropdown li:hover > button svg { transform: rotate(-270deg) }
+.dropdown.group:hover .group-hover\:scale-100 { transform: scale(1) }
+.dropdown.group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+.dropdown .scale-0 { transform: scale(0) }
+.dropdown .min-w-32 { min-width: 8rem }
+
+.toggle-checkbox:checked {
+    @apply right-0;
+    @apply border-green-400;
+    right: 0;
+    border-color: #68D391;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply bg-green-400;
+  background-color: #68D391;
+}
+.delete-btn {
+  background-image: url('/images/icons/delete.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem 1.3rem;
+}
+.edit-btn {
+  background-image: url('/images/icons/done.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem 1.3rem;
+}
