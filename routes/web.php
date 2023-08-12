@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OccasionController;
@@ -35,6 +36,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/occasions', [OccasionController::class, 'store'])->name('admin.occasions.store');
         Route::patch('/occasions/{id}', [OccasionController::class, 'update'])->name('admin.occasions.update');
         Route::delete('/occasions/{id}', [OccasionController::class, 'destroy'])->name('admin.occasions.destroy');
+
+        /* ---- Quiz ---- */
+        Route::get('/quiz', [QuizController::class, 'index'])->name('admin.quiz.index');
+        Route::get('/quiz/create', [QuizController::class, 'create'])->name('admin.quiz.create');
+        Route::get('/quiz/{slug}', [QuizController::class, 'show'])->name('admin.quiz.show');
+        Route::post('/quiz', [QuizController::class, 'store'])->name('admin.quiz.store');
+        Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('admin.quiz.edit');
+        Route::patch('/quiz/{slug}', [QuizController::class, 'update'])->name('admin.quiz.update');
+        Route::delete('/quiz/{slug}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
+
+        Route::post('/quiz/{slug}', [QuizController::class, 'addRelation'])->name('admin.quiz.relate');
+        Route::delete('/quiz/{exam}/{dept}', [QuizController::class, 'breakRelation'])->name('admin.quiz.breakup');
     });
 
 });

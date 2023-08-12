@@ -19,6 +19,10 @@
     @apply text-white;
 }
 
+.bg-orange-200 {
+   background-color: rgb(251, 146, 60);
+}
+
 .dropdown li>ul                 { transform: translatex(100%) scale(0) }
 .dropdown li:hover>ul           { transform: translatex(101%) scale(1) }
 .dropdown li > button svg       { transform: rotate(-90deg) }
