@@ -51,7 +51,7 @@ class AdminController extends Controller
 
     public function quizReportsIndividual($id) {
         $quiz = Quiz::findOrFail($id);
-        $progresses = Progress::where('quiz_id', $quiz->id)->get();
+        $progresses = Progress::where('quiz_id', $quiz->id)->orderBy('score', 'desc')->get();
         return view('admin.reportFilterIndividual')->with([
             "quiz" => $quiz,
             "progresses" => $progresses
