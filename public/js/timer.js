@@ -2,14 +2,12 @@ let hrs, mins, secs;
 let exam;
 
 window.addEventListener("load", function () {
-    //let slashPos = window.location.pathname.substring(7).indexOf('/');
-    //exam = window.location.pathname.substr(7, slashPos);
 
     exam = document.getElementById("props").dataset.exam;
     slug = document.getElementById("props").dataset.slug;
     user = document.getElementById("props").dataset.user;
 
-    //console.log(exam, slug, user);
+    console.log(exam, slug, user);
 
     var path = "/api/ajax/timer/" + slug + "/" + user;
 

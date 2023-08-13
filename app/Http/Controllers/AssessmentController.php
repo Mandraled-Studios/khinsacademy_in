@@ -90,20 +90,21 @@ class AssessmentController extends Controller
 
     public function timer($exam, $user, Request $request)
     {
-          $myexam = Exam::where('slug', $exam)->firstOrFail();
+          $myexam = Quiz::where('slug', $exam)->firstOrFail();
           
           $progress = Progress::where([
               ['user_id', '=', $user],
-              ['exam_id', '=', $myexam->id]])->firstOrFail();
+              ['quiz_id', '=', $myexam->id]])->firstOrFail();
           
           $fromtime = date('Y-m-d H:i:s');
-          $totime = $progress->end_time;
+          $totime = $progress->scheduled_end_time;
     
           $time1 = strtotime($fromtime);
           $time2 = strtotime($totime);
       
           
           $difference = $time2 - $time1;
+          dd($difference);
            
           if($difference>0){
             echo json_encode(gmdate("H:i:s", $difference)); 

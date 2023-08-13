@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
 use App\Models\User;
+use App\Models\Progress;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -36,6 +39,38 @@ class AdminController extends Controller
             "title" => "Search Results for '".$request->term."'",
             "students" => $students,
             "studentsCount" => $studentsCount,
+        ]);
+    }
+
+    public function quizReports() {
+        $quizzes = Quiz::whereNull('deleted_at')->whereNotNull('published_at')->get();
+        return view('admin.reportFilter')->with([
+            "quizzes" => $quizzes
+        ]);
+    }
+
+    public function quizReportsIndividual($id) {
+        $quiz = Quiz::findOrFail($id);
+        $progresses = Progress::where('quiz_id', $quiz->id)->get();
+        return view('admin.reportFilterIndividual')->with([
+            "quiz" => $quiz,
+            "progresses" => $progresses
+        ]);
+    }
+
+    public function reportsViewIndividualStudent($quiz, $student){
+        $user = User::findOrFail($student);
+        $quiz = Quiz::findOrFail($quiz);
+        $questions = Question::where('quiz_id', $quiz->id)->whereNull('deleted_at')->get();
+        $progresses = $quiz->progresses->where("user_id", $student)->first();
+
+
+        return view("admin.reports.individualStudent")->with([
+            "title" => "Exam Reports - ".$quiz->title,
+            "exam" => $quiz,
+            "progresses" => $progresses,
+            "questions" => $questions,
+            "student" => $user
         ]);
     }
 }

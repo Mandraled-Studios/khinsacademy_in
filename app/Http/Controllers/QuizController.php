@@ -60,7 +60,7 @@ class QuizController extends Controller
 
         if($request->has('save')) {
             $quiz->publish_status = 0;
-            $quiz->published_at = NULL;
+            $quiz->published_at = null;
         } else if($request->has('publish')) {
             $quiz->publish_status = 1;
             $quiz->published_at = date("Y-m-d H:i:s", time());

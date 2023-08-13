@@ -48,6 +48,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/student-registrations', [AdminController::class, 'studentRegistrations'])->name('admin.registrations');
         Route::get('/student-registrations/search', [AdminController::class, 'studentSearch'])->name('admin.registrations.search');
         Route::get('/student-registrations/{id}', [AdminController::class, 'studentProfile'])->name('admin.student');
+        Route::get('/quiz-reports', [AdminController::class, 'quizReports'])->name('admin.quizreports');
+        Route::get('/quiz-reports/{id}', [AdminController::class, 'quizReportsIndividual'])->name('admin.quizreports.individual');
+        Route::get('/quiz/{quiz}/{student}', [AdminController::class, 'reportsViewIndividualStudent'])->name('admin.reportsViewIndividualStudent');
+        Route::patch('/quiz/{pid}/{sid}', [ProgressController::class, 'changeStudentAttempt'])->name('admin.quiz.changeStudentAttempt');
 
         /* ---- Events ---- */
         Route::get('/occasions', [OccasionController::class, 'index'])->name('admin.occasions.index');
@@ -63,8 +67,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/quiz/{slug}/edit', [QuizController::class, 'edit'])->name('admin.quiz.edit');
         Route::patch('/quiz/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');
         Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
-        Route::post('/quiz/{slug}', [QuizController::class, 'addRelation'])->name('admin.quiz.relate');
-        Route::delete('/quiz/{exam}/{dept}', [QuizController::class, 'breakRelation'])->name('admin.quiz.breakup');
 
         /* ---- Questions ---- */
         Route::get('/quiz/{slug}/questions', [QuestionController::class, 'index'])->name('admin.questions.index');

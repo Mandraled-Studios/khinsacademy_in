@@ -85,6 +85,43 @@ class ProgressController extends Controller
         $alreadyProgressed->userAnswer = $userAnswers;
         $alreadyProgressed->save();
 
-        return redirect(route('students.quiz.scorecard', ['slug', $thisQuiz->slug]));
+        return redirect(route('students.quiz.scorecard', ['slug' => $thisQuiz->slug]));
+    }
+
+    public function scoreCard($slug) {
+        $quiz = Quiz::where('slug', $slug)->firstOrFail();
+        $questions = Question::where('quiz_id', $quiz->id)->whereNull('deleted_at')->get();
+        $questionCount = $questions->count();
+
+        $user = auth()->user()->id;
+
+        $alreadyProgressed = Progress::where([
+            ['user_id', $user], 
+            ['quiz_id', $quiz->id], 
+        ])->first();
+
+        $userAnswers = $alreadyProgressed->userAnswer;
+        $score = $alreadyProgressed->score;
+
+        return view("students.quiz.scorecard")->with([
+            'title' => $quiz->title,
+            'questions' => $questions,
+            'questionCount' => $questionCount,
+            'score' => $score,
+            'answered' => $alreadyProgressed->answered_correctly,
+            'score' => $score,
+            'maxMarks' => $quiz->max_marks,
+            'answers' => $userAnswers
+        ]);
+    }
+
+    public function changeStudentAttempt($pid, $sid, Request $request) {
+        $thisProgress = Progress::findOrFail($pid);
+        
+        $thisProgress->update([
+            'attempts_remain' => $request['newprogress']
+        ]);
+        
+        return redirect()->back()->with(["success" => "Attempts Updated"]);
     }
 }

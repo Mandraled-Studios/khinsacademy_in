@@ -17,7 +17,7 @@
 
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
 
             <div class="mt-4">
@@ -44,5 +44,14 @@
                 </x-button>
             </div>
         </form>
+
+        <div class="py-2">
+            <h3 class="mb-1"> New User? </h3>
+            <x-button class="w-full text-center" type="button"> 
+                <a class="block w-full h-full text-center" href="{{route('register')}}">
+                    Register Here 
+                </a>
+            </x-button>
+        </div>
     </x-authentication-card>
 </x-guest-layout>

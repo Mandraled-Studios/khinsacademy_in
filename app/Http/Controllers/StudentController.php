@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
+use App\Models\Progress;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -17,6 +18,9 @@ class StudentController extends Controller
     }
 
     public function reportCard() {
-        
+        $progresses = Progress::where('progress.user_id', auth()->user()->id)->get();
+        return view('students.reportcard')->with([
+            'progresses' => $progresses
+        ]);
     }
 }
