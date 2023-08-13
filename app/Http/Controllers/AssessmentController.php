@@ -95,6 +95,7 @@ class AssessmentController extends Controller
           $progress = Progress::where([
               ['user_id', '=', $user],
               ['quiz_id', '=', $myexam->id]])->firstOrFail();
+
           
           $fromtime = date('Y-m-d H:i:s');
           $totime = $progress->scheduled_end_time;
@@ -104,7 +105,6 @@ class AssessmentController extends Controller
       
           
           $difference = $time2 - $time1;
-          dd($difference);
            
           if($difference>0){
             echo json_encode(gmdate("H:i:s", $difference)); 

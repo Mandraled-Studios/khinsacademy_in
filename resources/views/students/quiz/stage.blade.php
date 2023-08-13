@@ -360,21 +360,21 @@
                 slug = document.getElementById("props").dataset.slug;
                 user = document.getElementById("props").dataset.user;
 
-                console.log(exam, slug, user);
-
                 var path = "/api/ajax/timer/" + slug + "/" + user;
 
                 var xhttp = new XMLHttpRequest();
                 
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
+                        
                         document.getElementById("timer").innerHTML = this.responseText;
+                        console.log(this.responseText);
+
                         hrs = parseInt(this.responseText.substr(1, 2));
                         mins = parseInt(this.responseText.substr(4, 2));
                         secs = parseInt(this.responseText.substr(7, 2));
                         console.log(hrs, mins, secs);
                         if (this.responseText == "Time Up") {
-                            //window.location = "/online-exams/" + slug + "/stage3/timeup";
                             Array.from(document.querySelectorAll(".ms-exam-ques")).forEach(card => {
                                 card.parentNode.removeChild(card);
                             });
