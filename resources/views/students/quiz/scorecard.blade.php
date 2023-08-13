@@ -42,4 +42,29 @@
             </div>
         @endforeach
     </div>
+    <div x-data="{open:false}" class="text-sm">
+        <div x-show="open" x-cloak id="ms-answer-verify"id="ms-answer-verify">
+        </div>
+        <button @click="open=!open"> Show Saved Answer </button>
+    </div>
+    <script>
+        window.addEventListener('load', function(){
+            let coo = getCookie("mandraled-khins-exam-1");
+            document.getElementById("ms-answer-verify").innerHTML = coo;
+        });
+        function getCookie(cname) {
+            let name = cname + "=";
+            let cookiearray = document.cookie.split(';');
+            for(let i = 0; i < cookiearray.length; i++) {
+                let c = cookiearray[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+            }
+    </script>
 </x-app-layout>
