@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\OccasionController;
+use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AssessmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +22,21 @@ use App\Http\Controllers\QuestionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('dashboard');
+});
+
+Route::get('/cache', function() {
+    //Clear route cache
+    \Artisan::call('route:cache');
+    //Clear config cache
+    \Artisan::call('config:cache');
+    // Clear application cache
+    \Artisan::call('cache:clear');
+    // Clear view cache
+    \Artisan::call('view:clear');
+    // Clear cache using reoptimized class
+    \Artisan::call('optimize:clear');
+   return redirect('/');
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
@@ -56,7 +73,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/quiz/{slug}/questions/{ques}/edit', [QuestionController::class, 'edit'])->name('admin.questions.edit');
         Route::patch('/quiz/{id}/questions/{ques}', [QuestionController::class, 'update'])->name('admin.questions.update');
         Route::delete('/quiz/{id}/questions/{ques}', [QuestionController::class, 'destroy'])->name('admin.questions.destroy');
+    });
 
+    Route::prefix('students')->group(function () {
+        Route::get('/quiz', [StudentController::class, 'quiz'])->name('students.quiz');
+        Route::get('/report-card', [StudentController::class, 'reportCard'])->name('students.reportCard');
+
+        Route::get('/quiz/{slug}', [AssessmentController::class, 'instructions'])->name('students.quiz.instructions');
+        Route::post('/quiz/{slug}/start', [AssessmentController::class, 'setupQuiz'])->name('students.quiz.setup');
+        Route::get('/quiz/{slug}/stage', [ProgressController::class, 'startQuiz'])->name('students.quiz.start');
+        Route::post('/quiz/{slug}/stage', [ProgressController::class, 'submitQuiz'])->name('students.quiz.submit');
+        Route::get('/quiz/{slug}/scorecard', [ProgressController::class, 'scoreCard'])->name('students.quiz.scorecard');
+        Route::get('/quiz/{slug}/pdf/questions', [AssessmentController::class, 'questionPDF'])->name('students.quiz.pdf');
     });
 
 });

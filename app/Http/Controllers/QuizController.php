@@ -127,7 +127,7 @@ class QuizController extends Controller
 
         $this->changeExamDB($quiz, $request);
 
-        return redirect()->back()->with('success', 'Quiz Updated');
+        return redirect(route('admin.quiz.index'))->with('success', 'Quiz Updated');
     }
     
     public function destroy($id) {

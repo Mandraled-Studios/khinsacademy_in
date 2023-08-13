@@ -58,3 +58,34 @@
   background-repeat: no-repeat;
   background-size: 1.3rem 1.3rem;
 }
+
+.ms-attended {
+  background-color: #2A3A;
+}
+
+.ms-marked {
+  background-color: rgba(192, 132, 252, 1);
+}
+
+.ms-skipped {
+  background-color: #C22A;
+}
+
+.ms-min-w-8 {
+  min-width: 12rem;
+}
+
+.ms-palette-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  background-color: #F80;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+#ms-close-palette-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #222;
+}
