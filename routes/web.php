@@ -50,8 +50,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/student-registrations/{id}', [AdminController::class, 'studentProfile'])->name('admin.student');
         Route::get('/quiz-reports', [AdminController::class, 'quizReports'])->name('admin.quizreports');
         Route::get('/quiz-reports/{id}', [AdminController::class, 'quizReportsIndividual'])->name('admin.quizreports.individual');
-        Route::get('/quiz/{quiz}/{student}', [AdminController::class, 'reportsViewIndividualStudent'])->name('admin.reportsViewIndividualStudent');
-        Route::patch('/quiz/{pid}/{sid}', [ProgressController::class, 'changeStudentAttempt'])->name('admin.quiz.changeStudentAttempt');
 
         /* ---- Events ---- */
         Route::get('/occasions', [OccasionController::class, 'index'])->name('admin.occasions.index');
@@ -87,6 +85,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/quiz/{slug}/stage', [ProgressController::class, 'submitQuiz'])->name('students.quiz.submit');
         Route::get('/quiz/{slug}/scorecard', [ProgressController::class, 'scoreCard'])->name('students.quiz.scorecard');
         Route::get('/quiz/{slug}/pdf/questions', [AssessmentController::class, 'questionPDF'])->name('students.quiz.pdf');
+
+        Route::get('/quiz/{quiz}/{student}', [AdminController::class, 'reportsViewIndividualStudent'])->name('admin.reportsViewIndividualStudent');
+        Route::patch('/quiz/{pid}/{sid}', [ProgressController::class, 'changeStudentAttempt'])->name('admin.quiz.changeStudentAttempt');
     });
 
 });
