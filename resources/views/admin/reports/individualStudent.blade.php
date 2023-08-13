@@ -8,15 +8,12 @@
     <div class="container mx-auto py-6">
         <?php 
             $ans = json_decode($progresses['userAnswer'], true); 
-            $maxMarks = $exam->maxMarks;
+            $maxMarks = $exam->max_marks;
             $questionCount = $questions->count();
-            $score = $progresses['score'];
+            $score = $progresses->score;
         ?>
         <div class = "p-3 text-white bg-orange-600 shadow mb-8">
-            {{--
-            <h1 class = "text-xl"> Answered {{$progresses['score']}} questions correctly and scored {{ $progresses['score'] * $exam->maxMarks / $questions->count()}} / {{$exam->maxMarks}} </h1>
-            --}}
-            <h1 class = "text-xl"> Student scored {{ $maxMarks / $questionCount * $score }} / {{$maxMarks}} </h1>
+            <h1 class = "text-xl"> Student scored {{ $score }} / {{$maxMarks}} </h1>
         </div>
         
         <div class="ms-tabs-nav flex justify-center">
@@ -37,7 +34,15 @@
                 <div class="ms-tab-pane show" id="tab{{$loop->index+1}}" style="">
                     <div class = "p-3 flex items-center bg-white shadow mb-4">
                         <div style="flex-shrink:0;" class = "w-12 h-12 rounded-full bg-orange-400 text-white flex flex-col justify-center items-center mr-3"> {{$loop->index+1}} </div> 
-                        <h2 class="font-fold-text-gray-800 text-xl"> {!! $ques->question !!} </h2>
+                        <div>
+                        <h2 class="font-fold-text-gray-800 text-lg"> {!! $ques->question_part1 !!} </h2>
+                        @isset($ques->quesImage)
+                          <img class="w-72 object-contain object-center max-w-full" src="{{$ques->quesImage}}" />
+                        @endisset
+                        @isset($ques->question_part2)
+                        <h2 class="font-fold-text-gray-800 text-lg"> {!! $ques->question_part2 !!} </h2>
+                        @endisset
+                        </div>
                     </div>
                     <div class = "mb-8">
                         <div class="bg-white shadow px-3 py-3 mb-3 @isset($ans[$loop->index]) @if($ans[$loop->index] == '1') bg-orange-200 @endif @endisset @if($ques->correct_answer == '1') bg-green-400 @endif"> 1) @isset($ans[$loop->index]) @if($ans[$loop->index] == "1") {{ "Your Answer: " }} @endif @endisset {{ $ques->option1 }} @if($ques->correct_answer == "1") {{ "[Correct Answer]" }} @endif </div>

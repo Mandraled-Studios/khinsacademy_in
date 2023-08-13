@@ -60,6 +60,7 @@ class AssessmentController extends Controller
             //check if user has attempts remaining
             if($alreadyProgressed->attempts_remain > 0) {
                 //reset progress for this exam
+                $progress->userAnswer = null;
                 $progress->submission_status = 0;
                 $progress->attended_ques_count = 0;
                 $progress->answered_correctly = 0;
