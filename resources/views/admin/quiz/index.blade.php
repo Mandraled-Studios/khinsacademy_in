@@ -96,6 +96,7 @@
                     
                                     <div class="mb-3 capitalize text-gray-600 px-2">
                                         <a href = "{{route('admin.questions.index', ['slug' => $quiz->slug])}}" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> View Questions </a>
+                                        <a href = "{{route('admin.quiz.show', ['slug' => $quiz->slug])}}" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> Assign Exam </a>
                                         <a href = "{{route('admin.quiz.edit', ['slug' => $quiz->slug])}}" class = "block text-center mb-3 px-4 py-2 bg-orange-400 text-white"> Edit Quiz </a>
                                         <form id = "deleteForm" action="{{route('admin.quiz.destroy', ['id' => $quiz->id])}}" method = "POST" class="inline">
                                             @csrf

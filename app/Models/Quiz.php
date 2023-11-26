@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Models\Progress;
 use App\Models\Question;
+use App\Models\QuizSection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Quiz extends Model
 {
@@ -27,6 +29,16 @@ class Quiz extends Model
     }
 
     /**
+     * Get all of the sections for the Quiz
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sections(): HasMany
+    {
+        return $this->hasMany(QuizSection::class);
+    }
+
+    /**
      * Get all of the progresses for the Quiz
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -34,5 +46,15 @@ class Quiz extends Model
     public function progresses(): HasMany
     {
         return $this->hasMany(Progress::class);
+    }
+
+    /**
+     * The departments that belong to the Quiz
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function departments(): BelongsToMany
+    {
+        return $this->belongsToMany(Department::class, 'department_quiz', 'department_id', 'quiz_id');
     }
 }

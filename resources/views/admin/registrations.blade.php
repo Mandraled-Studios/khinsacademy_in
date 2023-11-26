@@ -33,7 +33,7 @@
                         <h5 class="text-sm text-orange-500 block mb-3 lowercase px-2 overflow-hidden">{{ $student->email }}</h5>
                         <span class="text-small text-gray-500 block mb-5">Joined on: {{ date('d-m-Y', strtotime($student->created_at)) }}</span>
                 
-                        <a href="/student-registrations/{{$student->id}}" class="px-4 py-2 bg-orange-500 text-white rounded-full"> View Details </a>
+                        <a href="{{route('admin.student.show', ['id' => $student->id])}}" class="px-4 py-2 bg-orange-500 text-white rounded-full"> View Details </a>
                     </div>
                 </div>
             @endforeach

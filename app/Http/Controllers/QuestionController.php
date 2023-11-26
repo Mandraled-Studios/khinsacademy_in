@@ -10,9 +10,9 @@ class QuestionController extends Controller
 {
     public function changeQuestionDB($quizId, $question, $request) {
         $data = $request->validate([
-            'question_part1' => 'required|string|max:255',
+            'question_part1' => 'required|string|max:540',
             'quesImage' => 'nullable|sometimes|image|mimes:jpg,jpeg,png,gif,svg',
-            'question_part2' => 'nullable|string|max:255',
+            'question_part2' => 'nullable|string|max:540',
             'option1' => 'required|string|max:255',
             'option2' => 'required|string|max:255',
             'option3' => 'required|string|max:255',
@@ -55,9 +55,11 @@ class QuestionController extends Controller
     
     public function index($slug) {
         $quiz = Quiz::where('slug', $slug)->firstOrFail();
-        $questions = Question::where('quiz_id', $quiz->id)->whereNull('deleted_at')->get();
+        $quizSections = $quiz->sections;
+        $questions = Question::where('quiz_id', $quiz->id)->whereNull('deleted_at')->whereNull('quiz_section_id')->get();
         return view('admin.quiz.questions.index')->with(["title" => "Questions List", 
                                                   "quiz" => $quiz,
+                                                  "quizSections" => $quizSections,
                                                   "questions" => $questions ]);
     }
 
@@ -98,7 +100,7 @@ class QuestionController extends Controller
     }
 
     public function destroy($id, $ques) {
-        $question = Question::on('mysql2')->where([['id', $ques],['exam_id', $id]])->firstOrFail();
+        $question = Question::where([['id', $ques],['exam_id', $id]])->firstOrFail();
 
         $question->delete();
         

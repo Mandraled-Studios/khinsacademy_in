@@ -57,171 +57,171 @@
                 
                 //When Next button is clicked
                 Array.from(allNextButtons).forEach(nextBtn => {
-                nextBtn.addEventListener("click", function() {
-                    
-                    let targetNode = "#ms-exam-ques-"+nextBtn.dataset.questionid+" input[type='radio']";
-                    let targetNode2 = "#ms-exam-ques-"+nextBtn.dataset.questionid+" .questionId";
-                    let questionId = document.querySelector(targetNode2).value;
-                    let chosenOption;
+                    nextBtn.addEventListener("click", function() {
+                        
+                        let targetNode = "#ms-exam-ques-"+nextBtn.dataset.questionid+" input[type='radio']";
+                        let targetNode2 = "#ms-exam-ques-"+nextBtn.dataset.questionid+" .questionId";
+                        let questionId = document.querySelector(targetNode2).value;
+                        let chosenOption;
 
-                    Array.from(document.querySelectorAll(targetNode)).forEach(option => {
-                        //Check if any of the option is selected
-                        if(option.checked) {
-                            chosenOption = option.value;
-                            document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-skipped");
+                        Array.from(document.querySelectorAll(targetNode)).forEach(option => {
+                            //Check if any of the option is selected
+                            if(option.checked) {
+                                chosenOption = option.value;
+                                document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-skipped");
+                                document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-marked");
+                                document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.add("ms-attended");
+                            }
+                        });
+                        
+                        //If none are selected, set answer to NULL
+                        if(!chosenOption) {
+                            chosenOption = null;
+                            document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-attended");
                             document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-marked");
-                            document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.add("ms-attended");
+                            document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.add("ms-skipped");
                         }
-                    });
-                    
-                    //If none are selected, set answer to NULL
-                    if(!chosenOption) {
-                        chosenOption = null;
-                        document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-attended");
-                        document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.remove("ms-marked");
-                        document.querySelectorAll(".ms-questionSkipper")[nextBtn.dataset.questionid].classList.add("ms-skipped");
-                    }
-                    
-                    let myObj = allAnswers.find(obj => obj.quesID == questionId);
-                    
-                    //Store answers
-                    
-                    if(myObj) {
-                        let myObj2 = allAnswers.find((obj, i) => {
-                                if (obj.quesID == questionId) {
-                                    allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: chosenOption };
-                                    return true; // stop searching
-                                }
-                        });
-                    } else {
-                        allAnswers.push({
-                            sno: currentQuestion,
-                            quesID: questionId,
-                            chosenOption: chosenOption
-                        });
-                    }
-                    
-                    allAnswersInString = JSON.stringify(allAnswers);
-                    
-                    setCookie(cookieName, allAnswersInString, 1);
-                    
-                    submitField.value = allAnswersInString;
-                    
-                    //Check if last question
-                    if(currentQuestion < allQuestions.length - 1) {
-                        currentQuestion++;
-                    }
-                    
-                    //Progress to next question
-                    if(allQuestions[currentQuestion] && allQuestions[currentQuestion].dataset.questionid == currentQuestion) {
-                            allQuestions[currentQuestion-1].classList.add("hidden");
-                            allQuestions[currentQuestion].classList.remove("hidden");
-                            getRadioState(currentQuestion);
-                    }
-                    
-                }, false); 
+                        
+                        let myObj = allAnswers.find(obj => obj.quesID == questionId);
+                        
+                        //Store answers
+                        
+                        if(myObj) {
+                            let myObj2 = allAnswers.find((obj, i) => {
+                                    if (obj.quesID == questionId) {
+                                        allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: chosenOption };
+                                        return true; // stop searching
+                                    }
+                            });
+                        } else {
+                            allAnswers.push({
+                                sno: currentQuestion,
+                                quesID: questionId,
+                                chosenOption: chosenOption
+                            });
+                        }
+                        
+                        allAnswersInString = JSON.stringify(allAnswers);
+                        
+                        setCookie(cookieName, allAnswersInString, 1);
+                        
+                        submitField.value = allAnswersInString;
+                        
+                        //Check if last question
+                        if(currentQuestion < allQuestions.length - 1) {
+                            currentQuestion++;
+                        }
+                        
+                        //Progress to next question
+                        if(allQuestions[currentQuestion] && allQuestions[currentQuestion].dataset.questionid == currentQuestion) {
+                                allQuestions[currentQuestion-1].classList.add("hidden");
+                                allQuestions[currentQuestion].classList.remove("hidden");
+                                getRadioState(currentQuestion);
+                        }
+                        
+                    }, false); 
                 });
                 
                 //When Mark for Review button is clicked
                 Array.from(allMarkButtons).forEach(markBtn => {
-                markBtn.addEventListener("click", function() {
-                    
-                    let targetNode = "#ms-exam-ques-"+markBtn.dataset.questionid+" input[type='radio']";
-                    let targetNode2 = "#ms-exam-ques-"+markBtn.dataset.questionid+" .questionId";
-                    let questionId = document.querySelector(targetNode2).value;
-                    let chosenOption;
+                    markBtn.addEventListener("click", function() {
+                        
+                        let targetNode = "#ms-exam-ques-"+markBtn.dataset.questionid+" input[type='radio']";
+                        let targetNode2 = "#ms-exam-ques-"+markBtn.dataset.questionid+" .questionId";
+                        let questionId = document.querySelector(targetNode2).value;
+                        let chosenOption;
 
-                    Array.from(document.querySelectorAll(targetNode)).forEach(option => {
-                        //Check if any of the option is selected
-                        if(option.checked) {
-                            chosenOption = option.value;
-                            document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-skipped");
+                        Array.from(document.querySelectorAll(targetNode)).forEach(option => {
+                            //Check if any of the option is selected
+                            if(option.checked) {
+                                chosenOption = option.value;
+                                document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-skipped");
+                                document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-attended");
+                                document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.add("ms-marked");
+                            }
+                        });
+                        
+                        //If none are selected, set answer to NULL
+                        if(!chosenOption) {
+                            chosenOption = null;
                             document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-attended");
+                            document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-skipped");
                             document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.add("ms-marked");
                         }
-                    });
-                    
-                    //If none are selected, set answer to NULL
-                    if(!chosenOption) {
-                        chosenOption = null;
-                        document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-attended");
-                        document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.remove("ms-skipped");
-                        document.querySelectorAll(".ms-questionSkipper")[markBtn.dataset.questionid].classList.add("ms-marked");
-                    }
-                    
-                    let myObj = allAnswers.find(obj => obj.quesID == questionId);
-                    
-                    //Store answers
-                    
-                    if(myObj) {
-                        let myObj2 = allAnswers.find((obj, i) => {
-                                if (obj.quesID == questionId) {
-                                    allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: chosenOption };
-                                    return true; // stop searching
-                                }
-                        });
-                    } else {
-                        allAnswers.push({
-                            sno: currentQuestion,
-                            quesID: questionId,
-                            chosenOption: chosenOption
-                        });
-                    }
-                    
-                    allAnswersInString = JSON.stringify(allAnswers);
-                    
-                    setCookie(cookieName, allAnswersInString, 1);
-                    
-                    submitField.value = allAnswersInString;
-                    
-                    //Check if last question
-                    if(currentQuestion < allQuestions.length - 1) {
-                        currentQuestion++;
-                    }
-                    
-                    //Progress to next question
-                    if(allQuestions[currentQuestion] && allQuestions[currentQuestion].dataset.questionid == currentQuestion) {
-                            allQuestions[currentQuestion-1].classList.add("hidden");
-                            allQuestions[currentQuestion].classList.remove("hidden");
-                            getRadioState(currentQuestion);
-                    }
-                    
-                }, false); 
+                        
+                        let myObj = allAnswers.find(obj => obj.quesID == questionId);
+                        
+                        //Store answers
+                        
+                        if(myObj) {
+                            let myObj2 = allAnswers.find((obj, i) => {
+                                    if (obj.quesID == questionId) {
+                                        allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: chosenOption };
+                                        return true; // stop searching
+                                    }
+                            });
+                        } else {
+                            allAnswers.push({
+                                sno: currentQuestion,
+                                quesID: questionId,
+                                chosenOption: chosenOption
+                            });
+                        }
+                        
+                        allAnswersInString = JSON.stringify(allAnswers);
+                        
+                        setCookie(cookieName, allAnswersInString, 1);
+                        
+                        submitField.value = allAnswersInString;
+                        
+                        //Check if last question
+                        if(currentQuestion < allQuestions.length - 1) {
+                            currentQuestion++;
+                        }
+                        
+                        //Progress to next question
+                        if(allQuestions[currentQuestion] && allQuestions[currentQuestion].dataset.questionid == currentQuestion) {
+                                allQuestions[currentQuestion-1].classList.add("hidden");
+                                allQuestions[currentQuestion].classList.remove("hidden");
+                                getRadioState(currentQuestion);
+                        }
+                        
+                    }, false); 
                 });
                 
                 //When Clear button is clicked
                 Array.from(allClearButtons).forEach(clearBtn => {
-                clearBtn.addEventListener("click", function() {
-                    
-                    let targetNode = "#ms-exam-ques-"+clearBtn.dataset.questionid+" input[type='radio']";
-                    let targetNode2 = "#ms-exam-ques-"+clearBtn.dataset.questionid+" .questionId";
-                    let questionId = document.querySelector(targetNode2).value;
-                    let chosenOption;
+                    clearBtn.addEventListener("click", function() {
+                        
+                        let targetNode = "#ms-exam-ques-"+clearBtn.dataset.questionid+" input[type='radio']";
+                        let targetNode2 = "#ms-exam-ques-"+clearBtn.dataset.questionid+" .questionId";
+                        let questionId = document.querySelector(targetNode2).value;
+                        let chosenOption;
 
-                    Array.from(document.querySelectorAll(targetNode)).forEach(option => {
-                        //Check if any of the option is selected
-                        if(option.checked) {
-                            option.checked = false;
-                            document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.remove("ms-attended");
-                            document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.remove("ms-marked");
-                            document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.add("ms-skipped");
-                        }
-                    });
-                    
-                    let myObj = allAnswers.find((obj, i) => {
-                            if (obj.quesID == questionId) {
-                                allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: null };
-                                return true; // stop searching
+                        Array.from(document.querySelectorAll(targetNode)).forEach(option => {
+                            //Check if any of the option is selected
+                            if(option.checked) {
+                                option.checked = false;
+                                document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.remove("ms-attended");
+                                document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.remove("ms-marked");
+                                document.querySelectorAll(".ms-questionSkipper")[clearBtn.dataset.questionid].classList.add("ms-skipped");
                             }
-                    });
-                    
-                    allAnswersInString = JSON.stringify(allAnswers);
-                    
-                    setCookie(cookieName, allAnswersInString, 1);
-                    
-                    submitField.value = allAnswersInString;
-                    
-                }, false); 
+                        });
+                        
+                        let myObj = allAnswers.find((obj, i) => {
+                                if (obj.quesID == questionId) {
+                                    allAnswers[i] = { sno: currentQuestion, quesID: questionId, chosenOption: null };
+                                    return true; // stop searching
+                                }
+                        });
+                        
+                        allAnswersInString = JSON.stringify(allAnswers);
+                        
+                        setCookie(cookieName, allAnswersInString, 1);
+                        
+                        submitField.value = allAnswersInString;
+                        
+                    }, false); 
                 });
                 
                 openPaletteBtn.addEventListener("click", function(){
@@ -264,26 +264,26 @@
             questionSkipper();
             
             function setCookie(cname, cvalue, exdays) {
-            const d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires="+d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            //document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/" + "/;domain=admin.khinsacademy.com";
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                //document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/" + "/;domain=admin.khinsacademy.com";
             }
             
             function getCookie(cname) {
-            let name = cname + "=";
-            let cookiearray = document.cookie.split(';');
-            for(let i = 0; i < cookiearray.length; i++) {
-                let c = cookiearray[i];
-                while (c.charAt(0) == ' ') {
-                c = c.substring(1);
+                let name = cname + "=";
+                let cookiearray = document.cookie.split(';');
+                for(let i = 0; i < cookiearray.length; i++) {
+                    let c = cookiearray[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
                 }
-                if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-                }
-            }
-            return "";
+                return "";
             }
             
             function getRadioState(qno) {
@@ -433,8 +433,16 @@
     </x-slot>
 
     <div class="container mx-auto py-6">
-        <div class = "bg-orange-200 border-2 border-orange-400 mb-8 px-4 py-6"> 
-            <h2 class="text-xl font-bold"> {{$title}} </h2> 
+        <div class = "bg-orange-200/[0.3] border-2 border-orange-400 mb-8 px-4 py-6"> 
+            <h2 class="text-xl font-bold"> Exam Title: <span class="underline">{{$title}}</span>, Section name: <span class="underline">{{$thisSection->name}}</span> </h2> 
+            <p> List of sections: [
+                @foreach ($allSections as $sec)
+                    <span> 
+                        {{$sec->name}}  @if (!$loop->last), @endif
+                    </span>
+                @endforeach
+            ]
+            </p>
         </div>
         
         <div id="props" class = "hidden" data-completion = "false" data-slug="{{ $slug }}" data-user = {{ auth()->user()->id }} data-exam = {{ $quizID }} ></div>
@@ -448,67 +456,76 @@
         <main class = "lg:grid lg:grid-cols-12" id="mandraled-exam-center" data-examid="{{$quizID}}">
             <section class="px-6 py-3 col-span-8">
                 <form>
-                @foreach($questions as $question)
-                    <div id="ms-exam-ques-{{$loop->index}}" class="ms-exam-ques hidden" data-questionid = "{{$loop->index}}">
-                        <div class = "p-3 flex items-center bg-white shadow mb-4"> 
-                            <div class = "w-12 h-12 rounded-full bg-orange-400 text-white flex flex-col justify-center items-center mr-3"> {{$loop->index + 1}} </div>
-                            <div class = "block text-sm flex-1 mr-3"> {!! $question->question_part1 !!} </div>
-                            <input type="hidden" class="questionId" value="{{ $question->id }}" />
-                        </div>
-                         @if ($question->quesImage != NULL)
-                            <div class = "w-72 mt-2"> <img src = {{$question->quesImage}} class = "w-full" />  </div>
-                         @endif
-                         <div class = "block text-sm flex-1 mr-3"> {!! $question->question_part2 !!} </div>
-                        <div class="mt-2 mb-12">
-                            <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="1" class = "mr-3" /> {{ $question->option1 }} </label> </div>
-                            <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="2" class = "mr-3" /> {{ $question->option2 }} </label> </div>
-                            <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="3" class = "mr-3" /> {{ $question->option3 }} </label> </div>
-                            @isset($question->option4)
-                                <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="4" class = "mr-3" /> {{ $question->option4 }} </label> </div>
-                            @endisset
-                            @isset($question->option5)
-                                <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="5" class = "mr-3" /> {{ $question->option5 }} </label> </div>
-                            @endisset
-                        </div>
-                        
-                        <div class = "p-3 flex flex-wrap items-center justify-between">
-                            <div>
-                                <button type="button" id="ms-next-btn-{{$loop->index}}" class = "px-5 py-2 text-gray-800 bg-green-400 rounded-lg rounded-lg mx-2 my-3 ms-next-btn" data-questionid = "{{$loop->index}}"> Save Answer &amp; Continue To Next </button>
-                                <button type="button" id="ms-mark-btn-{{$loop->index}}" class = "px-5 py-2 text-gray-800 bg-purple-400 rounded-lg rounded-lg mx-2 my-3 ms-mark-btn" data-questionid = "{{$loop->index}}"> Mark For Review &amp; Go To Next </button>
+                    @foreach($questions as $question)
+                        <div id="ms-exam-ques-{{$loop->index}}" class="ms-exam-ques hidden" data-questionid = "{{$loop->index}}">
+                            <div class = "p-3 flex items-center bg-white shadow mb-4"> 
+                                <div class = "w-12 h-12 rounded-full bg-orange-400 text-white flex flex-col justify-center items-center mr-3"> {{$loop->index + 1}} </div>
+                                <div class = "block text-sm flex-1 mr-3"> {!! $question->question_part1 !!} </div>
+                                <input type="hidden" class="questionId" value="{{ $question->id }}" />
                             </div>
-                            <button type="button" id="ms-clear-btn-{{$loop->index}}" class = "ms-min-w-8 px-5 py-2 text-white bg-gray-400 rounded-lg rounded-lg mx-2 my-3 ms-clear-btn" data-questionid = "{{$loop->index}}"> Clear Answer </button>
+                            @if ($question->quesImage != NULL)
+                                <div class = "w-72 mt-2"> <img src = {{$question->quesImage}} class = "w-full" />  </div>
+                            @endif
+                            <div class = "block text-sm flex-1 mr-3"> {!! $question->question_part2 !!} </div>
+                            <div class="mt-2 mb-12">
+                                <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="1" class = "mr-3" /> {{ $question->option1 }} </label> </div>
+                                <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="2" class = "mr-3" /> {{ $question->option2 }} </label> </div>
+                                <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="3" class = "mr-3" /> {{ $question->option3 }} </label> </div>
+                                @isset($question->option4)
+                                    <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="4" class = "mr-3" /> {{ $question->option4 }} </label> </div>
+                                @endisset
+                                @isset($question->option5)
+                                    <div class="bg-white shadow px-3 py-5 mb-3 flex justify-start"> <label class = "cursor-pointer"> <input type="radio" name="chosenAnswer" value="5" class = "mr-3" /> {{ $question->option5 }} </label> </div>
+                                @endisset
+                            </div>
+                            
+                            <div class = "p-3 flex flex-wrap items-center justify-between">
+                                <div>
+                                    <button type="button" id="ms-next-btn-{{$loop->index}}" class = "px-5 py-2 text-gray-800 bg-green-400 rounded-lg rounded-lg mx-2 my-3 ms-next-btn" data-questionid = "{{$loop->index}}"> Save Answer &amp; Continue To Next </button>
+                                    <button type="button" id="ms-mark-btn-{{$loop->index}}" class = "px-5 py-2 text-gray-800 bg-purple-400 rounded-lg rounded-lg mx-2 my-3 ms-mark-btn" data-questionid = "{{$loop->index}}"> Mark For Review &amp; Go To Next </button>
+                                </div>
+                                <button type="button" id="ms-clear-btn-{{$loop->index}}" class = "ms-min-w-8 px-5 py-2 text-white bg-gray-400 rounded-lg rounded-lg mx-2 my-3 ms-clear-btn" data-questionid = "{{$loop->index}}"> Clear Answer </button>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
                 </form>
             </section>
         
             <aside class = "col-span-4 px-3 py-4">
-            <div id="ms-question-palette" class="hidden absolute top-12 right-4 w-10/12 z-50 md:block md:static bg-white flex flex-col justify-between p-4 shadow">
-                <div class="flex justify-between">
-                    <h2 class = "text-xl text-gray-900 mb-5 py-3"> Question Palette: </h2>
-                    <button id="ms-close-palette-btn" class="md:hidden"> x </button>
+                <div id="ms-question-palette" class="hidden absolute top-12 right-4 w-10/12 z-50 md:block md:static bg-white flex flex-col justify-between p-4 shadow">
+                    <div class="flex justify-between">
+                        <h2 class = "text-xl text-gray-900 mb-5 py-3"> Question Palette ({{$thisSection->name}}): </h2>
+                        <button id="ms-close-palette-btn" class="md:hidden"> x </button>
+                    </div>
+                    <div class="grid grid-cols-5 px-3 mb-8">
+                        @for ($qno = 1; $qno <= $totalQues; $qno++)
+                            <button class = "ms-questionSkipper px-3 py-2 text-gray-800 bg-gray-100 rounded-lg rounded-lg mx-1 mb-1" data-skiptoid = "{{$qno-1}}"> {{$qno}} </button>
+                        @endfor
+                    </div>
+                    <form id="ms-final-form" action = "{{route('students.quiz.submitstage', ['slug' => $slug, 'stage' => $thisSectionID ])}}" method = "POST">
+                        @csrf
+                        <input type="hidden" id="ms-student-answers" name="studentAnswers" value="" />
+                        
+                        <div class="py-2">
+                            @if ($thisSection->id == $lastSection->id)
+                            <button id="ms-exam-final-submit" type = "button" onclick="event.preventDefault();
+                                            if(confirm('Are you sure you want to submit the assessment for evaluation?')){
+                                                this.parentNode.parentNode.submit();
+                                            }"  name = "evaluate" class = "px-4 py-3 text-white cursor-pointer bg-emerald-500 hover:bg-emerald-600"> 
+                                Submit For Evaluation 
+                            </button>
+                            @else
+                            <button id="ms-exam-next-section" type = "button" onclick="event.preventDefault();
+                                            if(confirm('Are you sure you want to submit the answers and proceed to the next section?')){
+                                                document.getElementById('ms-final-form').submit();
+                                            }"  name = "evaluate" class = "px-4 py-3 text-white cursor-pointer bg-emerald-500 hover:bg-emerald-600"> 
+                                Proceed to Next Section 
+                            </button>
+                            @endif
+                        </div>    
+                    </form>
                 </div>
-                <div class="grid grid-cols-5 px-3 mb-8">
-                    @for ($qno = 1; $qno <= $totalQues; $qno++)
-                        <button class = "ms-questionSkipper px-3 py-2 text-gray-800 bg-gray-100 rounded-lg rounded-lg mx-1 mb-1" data-skiptoid = "{{$qno-1}}"> {{$qno}} </button>
-                    @endfor
-                </div>
-                <form action = "{{route('students.quiz.submit', ['slug' => $slug ])}}" method = "POST">
-                    @csrf
-                    <input type="hidden" id="ms-student-answers" name="studentAnswers" value="" />
-                    
-                    <div class="py-2">
-                        <button id="ms-exam-final-submit" type = "button" onclick="event.preventDefault();
-                                        if(confirm('Are you sure you want to submit the assessment for evaluation?')){
-                                            this.parentNode.parentNode.submit();
-                                        }"  name = "Save" class = "px-4 py-3 text-white cursor-pointer bg-emerald-500 hover:bg-emerald-600"> 
-                            Submit For Evaluation 
-                        </button>
-                    </div>    
-                </form>
-            </div>
-        </aside>
+            </aside>
         </main>
     </div>
     

@@ -99,11 +99,15 @@ class AssessmentController extends Controller
 
           
           $fromtime = date('Y-m-d H:i:s');
-          $totime = $progress->scheduled_end_time;
-    
           $time1 = strtotime($fromtime);
-          $time2 = strtotime($totime);
-      
+          
+          if($myexam->sections()->count() > 0) {
+            $totime = $myexam->sections()->first()->max_mins;
+            $time2 = strtotime(date('Y-m-d H:i:s', time() + $totime*60));
+          } else {
+            $totime = $progress->scheduled_end_time;  
+            $time2 = strtotime($totime);
+          }
           
           $difference = $time2 - $time1;
            

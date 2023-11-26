@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\Occasion;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\DepartmentQuiz;
+use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
@@ -62,6 +65,16 @@ class QuizController extends Controller
             $quiz->publish_status = 0;
             $quiz->published_at = null;
         } else if($request->has('publish')) {
+            $totalTime = 0;
+            $totalMarks = 0;
+            if($quiz->sections()->count() > 0) {
+                foreach($quiz->sections as $sec) {
+                    $totalTime+=(int)$sec->max_mins;
+                    $totalMarks+=(int)$sec->max_marks;
+                }
+                $quiz->max_mins = $totalTime;
+                $quiz->max_marks = $totalMarks;
+            }
             $quiz->publish_status = 1;
             $quiz->published_at = date("Y-m-d H:i:s", time());
         }
@@ -96,12 +109,36 @@ class QuizController extends Controller
     
     public function show($slug) {
         $quiz = Quiz::where("slug", $slug)->firstOrFail();
-        $occasions = Occasion::all();
+        $departments = Department::all();
+        $quizDeptRelation = DB::table('department_quiz')
+        ->join('departments', 'department_quiz.department_id', '=', 'departments.id')
+        ->select('department_quiz.*', 'departments.*')
+        ->where('department_quiz.quiz_id', $quiz->id)->get();
         
-        return view("admin.quiz.show")->with(["title" => $exam->title, 
-                                "exam" => $exam, 
-                                "occasions" => $occasions
-                            ]);
+        return view("admin.quiz.show")->with([
+            "title" => $quiz->title, 
+            "quiz" => $quiz, 
+            "relations" => $quizDeptRelation, 
+            "departments" => $departments
+        ]);
+    }
+
+    public function assign($id, Request $request) {
+        $quiz = Quiz::findOrFail($id);
+
+        DepartmentQuiz::create([
+            "department_id" => $request->addDept,
+            "quiz_id" => $quiz->id
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function deassign($dept, $quiz) {
+        $rel = DepartmentQuiz::where([['quiz_id', $quiz], ['department_id', $dept]])->firstOrFail();
+        $rel->delete();
+
+        return redirect()->back();
     }
     
     public function edit($slug) {

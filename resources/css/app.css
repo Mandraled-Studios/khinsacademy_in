@@ -19,6 +19,10 @@
     @apply text-white;
 }
 
+input[type="submit"], button {
+    @apply cursor-pointer;
+}
+
 .bg-orange-200 {
    background-color: rgb(251, 146, 60);
 }
@@ -55,12 +59,14 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1.3rem 1.3rem;
+  cursor: pointer;
 }
 .edit-btn {
   background-image: url('/images/icons/done.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1.3rem 1.3rem;
+  cursor: pointer;
 }
 
 .ms-attended {

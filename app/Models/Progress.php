@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Quiz;
+use App\Models\SectionProgress;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,5 +38,15 @@ class Progress extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get all of the section_progress for the Progress
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function section_progress(): HasMany
+    {
+        return $this->hasMany(SectionProgress::class);
     }
 }
