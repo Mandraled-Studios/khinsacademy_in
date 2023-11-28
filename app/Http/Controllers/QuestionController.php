@@ -10,9 +10,9 @@ class QuestionController extends Controller
 {
     public function changeQuestionDB($quizId, $question, $request) {
         $data = $request->validate([
-            'question_part1' => 'required|string|max:540',
+            'question_part1' => 'required|string|max:900',
             'quesImage' => 'nullable|sometimes|image|mimes:jpg,jpeg,png,gif,svg',
-            'question_part2' => 'nullable|string|max:540',
+            'question_part2' => 'nullable|string|max:900',
             'option1' => 'required|string|max:255',
             'option2' => 'required|string|max:255',
             'option3' => 'required|string|max:255',
@@ -100,7 +100,7 @@ class QuestionController extends Controller
     }
 
     public function destroy($id, $ques) {
-        $question = Question::where([['id', $ques],['exam_id', $id]])->firstOrFail();
+        $question = Question::where([['id', $ques],['quiz_id', $id]])->firstOrFail();
 
         $question->delete();
         

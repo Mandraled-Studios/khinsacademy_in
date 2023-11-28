@@ -28,7 +28,16 @@
                 <div class = "p-3 flex items-center bg-white shadow"> 
                     <div class = "w-12 h-12 rounded-full bg-orange-400 text-white flex flex-col justify-center items-center mr-3"> {{$loop->index+1}} </div> 
                     <h2 class="block text-xl font-bold flex-1 mr-3"> {!! $question->question_part1 !!} </h2>
-                    <a href = "{{route('admin.questions.edit', ['slug' => $quiz->slug, 'ques' => $question->id])}}" class = "px-4 py-2 text-white cursor-pointer bg-orange-500 hover:bg-orange-600"> Edit Question </a>
+                    <a href = "{{route('admin.questions.edit', ['slug' => $quiz->slug, 'ques' => $question->id])}}" class = "px-4 py-2 text-white cursor-pointer bg-orange-500 hover:bg-orange-600 mr-3"> Edit Question </a>
+                    <form action="{{route('admin.questions.destroy', ['id' => $quiz->id, 'ques' => $question->id])}}" method = "POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type = "submit" class = "bg-red-600 text-white p-2 w-10 h-10 rounded-lg delete-btn" onclick="event.preventDefault();
+                                                if(confirm('Are you sure you want to delete this question?')){
+                                                    this.parentNode.submit();
+                                                }"> 
+                        </button>
+                    </form>
                 </div>
                 @isset($question->quesImage)
                     <div class="bg-white shadow p-3">

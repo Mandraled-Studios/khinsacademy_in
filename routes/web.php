@@ -88,14 +88,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::patch('/quiz/{id}', [QuizController::class, 'update'])->name('admin.quiz.update');
         Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('admin.quiz.destroy');
         Route::post('/quiz/assign/{id}', [QuizController::class, 'assign'])->name('admin.quiz.assign');
-        Route::delete('/quiz/{dept}/{quiz}', [QuizController::class, 'deassign'])->name('admin.quiz.deassign');
-
-        /* ---- Quiz Sections ---- */
-        Route::get('/quiz/{slug}/create', [QuizSectionController::class, 'create'])->name('admin.quiz.sections.create');
-        Route::post('/quiz/{slug}', [QuizSectionController::class, 'store'])->name('admin.quiz.sections.store');
-        Route::get('/quiz/{slug}/{section}/edit', [QuizSectionController::class, 'edit'])->name('admin.quiz.sections.edit');
-        Route::patch('/quiz/{slug}/{section}', [QuizSectionController::class, 'update'])->name('admin.quiz.sections.update');
-        Route::delete('/quiz/{slug}/{section}', [QuizSectionController::class, 'destroy'])->name('admin.quiz.sections.destroy');
+        Route::delete('/quiz/deassign/{dept}/{quiz}', [QuizController::class, 'deassign'])->name('admin.quiz.deassign');
 
         /* ---- Questions ---- */
         Route::get('/quiz/{slug}/questions', [QuestionController::class, 'index'])->name('admin.questions.index');
@@ -104,6 +97,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/quiz/{slug}/questions/{ques}/edit', [QuestionController::class, 'edit'])->name('admin.questions.edit');
         Route::patch('/quiz/{id}/questions/{ques}', [QuestionController::class, 'update'])->name('admin.questions.update');
         Route::delete('/quiz/{id}/questions/{ques}', [QuestionController::class, 'destroy'])->name('admin.questions.destroy');
+
+        /* ---- Quiz Sections ---- */
+        Route::get('/quiz/{slug}/create', [QuizSectionController::class, 'create'])->name('admin.quiz.sections.create');
+        Route::post('/quiz/{slug}', [QuizSectionController::class, 'store'])->name('admin.quiz.sections.store');
+        Route::get('/quiz/{slug}/{section}/edit', [QuizSectionController::class, 'edit'])->name('admin.quiz.sections.edit');
+        Route::patch('/quiz/{slug}/{section}', [QuizSectionController::class, 'update'])->name('admin.quiz.sections.update');
+        Route::delete('/quiz/{slug}/{section}', [QuizSectionController::class, 'destroy'])->name('admin.quiz.sections.destroy');
 
         /* ---- Questions within section ---- */
         Route::get('/quiz/{slug}/{section}/questions', [SectionQuestionController::class, 'index'])->name('admin.questionsInSection.index');

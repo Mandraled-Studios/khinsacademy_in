@@ -11,9 +11,9 @@ class SectionQuestionController extends Controller
 {
     public function changeQuestionDB($quizId, $question, $request, $section) {
         $data = $request->validate([
-            'question_part1' => 'required|string|max:255',
+            'question_part1' => 'required|string|max:900',
             'quesImage' => 'nullable|sometimes|image|mimes:jpg,jpeg,png,gif,svg',
-            'question_part2' => 'nullable|string|max:255',
+            'question_part2' => 'nullable|string|max:900',
             'option1' => 'required|string|max:255',
             'option2' => 'required|string|max:255',
             'option3' => 'required|string|max:255',

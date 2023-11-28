@@ -74,6 +74,9 @@ class QuizSectionController extends Controller
             ['quiz_id', $thisQuiz->id],
         ])->firstOrFail();
 
+        $thisSection->questions()->delete();
+        $thisSection->section_progress()->delete();
+
         $thisSection->delete();
 
         return redirect()->back()->with('danger', 'Quiz Section Deleted');

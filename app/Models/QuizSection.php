@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Quiz;
+use App\Models\Question;
+use App\Models\SectionProgress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,5 +36,15 @@ class QuizSection extends Model
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'quiz_section_id');
+    }
+
+    /**
+     * Get all of the section_progress for the QuizSection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function section_progress(): HasMany
+    {
+        return $this->hasMany(SectionProgress::class);
     }
 }
